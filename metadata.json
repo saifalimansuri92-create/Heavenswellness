@@ -1,0 +1,8 @@
+{
+  "name": "Remix Heavens Wellness",
+  "description": "Premium luxury chocolate brand - Midnight Mood.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

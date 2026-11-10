@@ -1,0 +1,127 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Premium chocolate product information",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string", "maxLength": 100 },
+        "description": { "type": "string", "maxLength": 1000 },
+        "price": { "type": "number" },
+        "weight": { "type": "string", "maxLength": 20 },
+        "stock": { "type": "integer" },
+        "image": { "type": "string" },
+        "category": { "type": "string", "enum": ["Bars", "Truffles", "Gifts", "Seasonal"] },
+        "ingredients": { "type": "string", "maxLength": 2000 },
+        "allergens": { "type": "string", "maxLength": 500 },
+        "nutrition": { "type": "string", "maxLength": 2000 },
+        "isBestSeller": { "type": "boolean" }
+      },
+      "required": ["name", "price", "stock", "image"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer order details",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "productId": { "type": "string" },
+              "name": { "type": "string" },
+              "quantity": { "type": "integer" },
+              "price": { "type": "number" }
+            }
+          }
+        },
+        "totalAmount": { "type": "number" },
+        "status": { "type": "string", "enum": ["Pending", "Confirmed", "Shipped", "Delivered", "Cancelled"] },
+        "shippingAddress": {
+          "type": "object",
+          "properties": {
+            "fullName": { "type": "string" },
+            "phone": { "type": "string" },
+            "street": { "type": "string" },
+            "city": { "type": "string" },
+            "state": { "type": "string" },
+            "pincode": { "type": "string" }
+          }
+        },
+        "paymentMethod": { "type": "string", "enum": ["UPI", "COD", "Card"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "items", "totalAmount", "status", "shippingAddress", "paymentMethod", "createdAt"]
+    },
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Extended user information",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "customer"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "role"]
+    },
+    "Banner": {
+      "title": "Website Banner",
+      "description": "Marketing banners for the homepage",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "image": { "type": "string" },
+        "link": { "type": "string" },
+        "active": { "type": "boolean" },
+        "order": { "type": "integer" }
+      },
+      "required": ["title", "image", "active"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Collection of chocolate products"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Collection of customer orders"
+    },
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Collection of user profiles and roles"
+    },
+    "/users/{userId}/wishlist/{productId}": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "productId": { "type": "string" },
+          "addedAt": { "type": "string", "format": "date-time" }
+        }
+      },
+      "description": "User's favorite products"
+    },
+    "/banners/{bannerId}": {
+      "schema": "Banner",
+      "description": "Homepage promotional banners"
+    },
+    "/products/{productId}/reviews/{reviewId}": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "userId": { "type": "string" },
+          "userName": { "type": "string", "maxLength": 100 },
+          "rating": { "type": "integer", "minimum": 1, "maximum": 5 },
+          "comment": { "type": "string", "maxLength": 1000 },
+          "createdAt": { "type": "string", "format": "date-time" }
+        },
+        "required": ["userId", "userName", "rating", "comment", "createdAt"]
+      },
+      "description": "Customer reviews for products"
+    }
+  }
+}

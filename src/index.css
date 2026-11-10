@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-gold-light: #F9E695;
+  --color-gold: #D4AF37;
+  --color-gold-dark: #A67C00;
+  --color-gold-deep: #8B6914;
+  --color-champagne: #F7E7CE;
+  
+  --font-display: "Playfair Display", serif;
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+
+  --animate-shimmer: shimmer 3s infinite linear;
+  --animate-glow: glow 2s infinite alternate;
+
+  @keyframes shimmer {
+    from { background-position: -200% center; }
+    to { background-position: 200% center; }
+  }
+
+  @keyframes glow {
+    from { text-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
+    to { text-shadow: 0 0 20px rgba(212, 175, 55, 0.6); }
+  }
+}
+
+@layer utilities {
+  .text-gold-gradient {
+    background: linear-gradient(
+      to right,
+      #BF953F,
+      #FCF6BA,
+      #B38728,
+      #FBF5B7,
+      #AA771C
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% auto;
+  }
+
+  .bg-gold-gradient {
+    background: linear-gradient(
+      45deg,
+      #BF953F,
+      #FCF6BA,
+      #B38728,
+      #FBF5B7,
+      #AA771C
+    );
+    background-size: 200% auto;
+  }
+
+  .border-gold-gradient {
+    border-image: linear-gradient(
+      45deg,
+      #BF953F,
+      #FCF6BA,
+      #B38728,
+      #FBF5B7,
+      #AA771C
+    ) 1;
+  }
+
+  .gold-shimmer {
+    background: linear-gradient(
+      to right,
+      #BF953F 0%,
+      #FCF6BA 20%,
+      #B38728 40%,
+      #FBF5B7 60%,
+      #AA771C 80%,
+      #BF953F 100%
+    );
+    background-size: 200% auto;
+    animation: shimmer 3s infinite linear;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-black text-white antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight;
+  }
+}
+
